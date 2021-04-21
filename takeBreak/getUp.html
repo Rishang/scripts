@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>5 Min Break</title>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
+
+	<style type="text/css">
+		h1 {
+			text-align: center;
+			font-family: 'Noto Serif', serif;
+			/*font-stretch: */
+			font-size: 110px;
+			padding: 25px;
+			margin: 10px;
+		}
+		h2 {
+			text-align: center;
+			font-family: 'Noto Serif', serif;
+			font-style: oblique;
+			/*font-stretch: */
+			font-size: 40px;
+			padding: 20px;
+			margin: 25px;
+		}
+		div {
+			padding: 10px;
+			margin: 15px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<br><br><br>
+		<h1 id="done">
+			Please take a 5 Min break...
+		</h1>
+		<br>
+	</div>
+	
+	<div>
+		<h2 id="time-gone"></h2>
+	</div>
+
+	<script type="text/javascript">
+		function sleep(ms)
+		{
+			return new Promise(resolve => setTimeout(resolve, ms));
+		}
+		
+		async function demo()
+		{	
+			min=0
+			sec=0
+			for ( i=1 ;; i=i+1 ) {
+				await sleep(1000);
+				if ((i%60) == 0)
+				{
+					min = min + 1;
+					sec = 0
+				}
+				else{
+					sec++
+				}
+				
+				text =+  min+ " minute(s) <br>" + sec +" Second(s) complited";
+				// console.log(i);
+				if (i==301)
+				{
+					document.getElementById("done").innerHTML = "Done";
+					await sleep(10000)
+					window.close();
+// 					break;
+				}
+				else
+				{
+					document.getElementById('time-gone').innerHTML = text;
+					
+				}
+			}
+		}
+		demo()
+</script>
+</body>
+</html>
