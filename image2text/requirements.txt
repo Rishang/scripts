@@ -1,0 +1,4 @@
+pillow
+python-magic
+click
+pytesseract
