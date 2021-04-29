@@ -1,0 +1,4 @@
+.vscode
+.mypy_cache
+tmp
+.ipynb_checkpoints
