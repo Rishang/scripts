@@ -2,7 +2,7 @@
 
 **Requirements:**
 
-1. Tesseract OCR
+1. [Tesseract OCR](https://github.com/tesseract-ocr/tesseract)
 
 2. packages present in requirements.txt (`pip install -r requirements.txt`)
 
@@ -21,13 +21,13 @@
 
 ### Examples
 
-#### Single file
+#### Single Image
 
 This will analyse `./example.jpg` and save the output text as `example.txt` at `dir/example.txt` directory
 
     python img2txt.py -p ./example.jpg -o ./dir
 
-#### Multile file
+#### Multiple Images
 
 For analysing multiple just define directory path where all images are present in `-p` and the outuput path `-o` where all text file will be saved
 
