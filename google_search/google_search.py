@@ -70,6 +70,7 @@ def google_search(query, p=0, type_=""):
     types = {
         "news": "nws",
         "video": "vid",
+        "book": "bks",
     }
 
     if type_.lower() in types:
