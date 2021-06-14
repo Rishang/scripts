@@ -36,7 +36,7 @@ def find_data(html):
                 if href != -1:
                     href = href.get("href").split("url?q=")[-1]
                     domain = href.split("/")[2]
-                    url = href
+                    url = href.split("&sa=")[0]
                     href_flag = True
 
             if h3_flag == False:
