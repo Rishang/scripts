@@ -36,7 +36,7 @@ def find_data(html):
                 if href != -1:
                     href = re.search(r'http.+', href.get("href"))[0]
                     # ignore url parameters 
-                    url = re.sub(r'&ved=.+','', href)
+                    url = re.sub(r'&(ved|sa)=.+','', href)
                     domain = url.split("/")[2]
                     href_flag = True
 
@@ -71,6 +71,7 @@ def google_search(query, p=0, type_=""):
     types = {
         "news": "nws",
         "video": "vid",
+        "book": "bks"
     }
 
     if type_.lower() in types:
