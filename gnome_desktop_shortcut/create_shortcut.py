@@ -1,7 +1,10 @@
+#! /usr/bin/env python3
 
+import os
+
+HOME = os.environ.get("HOME")
 
 app_category="Application"
-
 print("Enter Application Name:",end='')
 app_name=input()
 print("Enter Application Path:",end='')
@@ -19,5 +22,5 @@ Icon={app_icon}
 Categories=Application;
 """
 
-with open(f"~/.local/share/applications/{app_name.replace(' ','_').lower()}.desktop",'w') as s:
+with open(f"{HOME}/.local/share/applications/{app_name.replace(' ','_').lower()}.desktop",'w') as s:
     s.write(desktop_s)
