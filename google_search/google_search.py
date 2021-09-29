@@ -99,6 +99,7 @@ def google_search(query, p=0, type_=""):
         "query": query,
         "search_url": search,
         "results": f,
+        "result_count": len(f),
         "page": p,
         "headers": headers,
         "status_code": data.status_code,
