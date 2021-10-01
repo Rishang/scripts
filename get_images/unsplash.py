@@ -4,38 +4,45 @@ import random
 import asyncio
 import aiohttp
 
+
 class Unsplash:
 
-    API = "https://unsplash.com/napi/"
-    TOKEN = ""
-    orientation = 'landscape'
-    total = int()
-    total_pages = int()
+    API = "https://unsplash.com/napi"
+
+    # landscape | portrait | squarish
+    orientation = "landscape"
+    
+    # max 29
+    per_page = 29
+    
+    __orientation_q = f"orientation={orientation}"
+    __per_page_q = f"per_page={per_page}"
+    
     random = None
 
-    def __init__(self):
-        pass
+    # for officl api
+    TOKEN = ""
+    total = int()
+    total_pages = int()
 
-    def query(self, search=None, page:int=1, random_img:bool=False):
-        per_page = 20
+    def __init__(self):
+        pass 
         
+
+    def query(self, search=None, page: int = 1, random_img: bool = False):
+
         if search is not None:
-            
-            q_path = f'search/photos?query={search}'
-            query = self.API + q_path + '&' + f'orientation={self.orientation}'            
             
             if type(search) is list:
                 q = [
-                    self.API + f'search/photos?query={s}&per_page=29&page=1&orientation={self.orientation}' 
+                    f"{self.API}/search/photos?query={s}&page={page}&" + self.__orientation_q
                     for s in search
                 ]
-                
-                loop = asyncio.new_event_loop()
-                tmp_data = loop.run_until_complete(
-                    self._multi_query(q)
-                )
 
-                r_img:list = []
+                loop = asyncio.new_event_loop()
+                tmp_data = loop.run_until_complete(self._multi_query(q))
+
+                r_img: list = []
                 for d in tmp_data:
                     tmp = json.loads(d)
                     r_img = r_img + tmp.get('results')
@@ -50,29 +57,32 @@ class Unsplash:
         else:
             return False
 
+        query = self.API + f"/search/photos?query={search}&page={page}&" + self.__orientation_q
         data = json.loads(requests.get(query).text)
-        print(data.keys())
-        self.total = data['total']
-        self.total_pages = data['total_pages']
+        if "errors" in data.keys():
+            print(data)
 
-        if len(data['results']) != 0 and random_img == True:
+        self.total = data["total"]
+        self.total_pages = data["total_pages"]
 
-            self.random = random.choice(data['results'])
-            return random.choice(data['results'])
+        if len(data["results"]) != 0 and random_img == True:
 
-        return data['results'] or None
+            self.random = random.choice(data["results"])
+            return random.choice(data["results"])
 
+        return data["results"] or None
 
-    @property
     def any(self):
 
-        query = self.API + 'photos?per_page=29&page=1' + '&' + f'orientation={self.orientation}'
+        query = (
+            f"{self.API}/photos?{self.__per_page_q}&page=1&"
+            + self.__orientation_q
+        )
         data = json.loads(requests.get(query).text)
         self.random = random.choice(data)
         return random.choice(data)
 
-    
-    async def _multi_query(self, q:list):
+    async def _multi_query(self, q: list):
 
         async with aiohttp.ClientSession() as session:
             d = []
@@ -83,5 +93,3 @@ class Unsplash:
                     html = await response.text()
                     d.append(html)
         return d
-
-
