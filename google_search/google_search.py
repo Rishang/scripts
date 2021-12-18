@@ -34,9 +34,16 @@ def find_data(html):
             if href_flag == False:
                 href = element.find("a")
                 if href != -1:
+<<<<<<< HEAD
                     href = href.get("href").split("url?q=")[-1]
                     domain = href.split("/")[2]
                     url = href.split("&sa=")[0]
+=======
+                    href = re.search(r'http.+', href.get("href"))[0]
+                    # ignore url parameters 
+                    url = re.sub(r'&(ved|sa)=.+','', href)
+                    domain = url.split("/")[2]
+>>>>>>> 7a882a50a77e2012a998b033a59aa47ef4c0fac6
                     href_flag = True
 
             if h3_flag == False:
@@ -70,7 +77,11 @@ def google_search(query, p=0, type_=""):
     types = {
         "news": "nws",
         "video": "vid",
+<<<<<<< HEAD
         "book": "bks",
+=======
+        "book": "bks"
+>>>>>>> 7a882a50a77e2012a998b033a59aa47ef4c0fac6
     }
 
     if type_.lower() in types:
@@ -98,6 +109,7 @@ def google_search(query, p=0, type_=""):
         "query": query,
         "search_url": search,
         "results": f,
+        "result_count": len(f),
         "page": p,
         "headers": headers,
         "status_code": data.status_code,
