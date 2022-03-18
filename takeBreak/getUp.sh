@@ -22,7 +22,7 @@ while true;do
 	fi
 	if [[ $count -eq 1800  ]];then
 		# /usr/bin/notify-send "TAKE A BREAK it's Been 30 min, Get Up"
-		x-www-browser --no-sandbox ${directory_name}/getUp.html ;
+		xdg-open ${directory_name}/getUp.html ;
 		clear
 		echo "Done $((count/60)) min !!"
 		sleep 300
