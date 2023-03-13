@@ -8,11 +8,13 @@
 
 
 # tmux
-source ~/.bashrc
-let count=0
-directory_name="$HOME/.takeBreak"
+export SHELL=/bin/bash
+
 # sleep 1800 = 30min
 # sleep 60 = 1min
+
+count=0
+limit=1800
 
 while true;do
 	sleep 60
@@ -20,9 +22,9 @@ while true;do
 	if [[ $((count%300)) -eq 0 ]];then
 		echo "$((count/60)) min complited"
 	fi
-	if [[ $count -eq 1800  ]];then
+	if [[ $count -eq $limit  ]];then
 		# /usr/bin/notify-send "TAKE A BREAK it's Been 30 min, Get Up"
-		xdg-open ${directory_name}/getUp.html ;
+		x-www-browser --no-sandbox $HOME/.takeBreak/getUp.html ;
 		clear
 		echo "Done $((count/60)) min !!"
 		sleep 300
