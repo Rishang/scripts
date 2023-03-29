@@ -13,11 +13,11 @@ function _install
 		mkdir -p ${directory}
 	fi
 
-	echo -e "\nsetting executable permition to getUp.sh"
-	chmod +x getUp.sh
+	echo -e "\nsetting executable permition to getUp.py"
+	chmod +x getUp.py
 
 	echo -e "Copying all files present here to ${directory}\n"
-	cp getUp.html getUp.sh README.md ${directory}
+	cp getUp.html getUp.py README.md ${directory}
 
 	if ! [ $(command -v tmux) ];then
 	echo -e "installing tmux"
@@ -28,7 +28,7 @@ function _install
 	if ! [[ $(grep '# takeBreak alias' ~/.bash_aliases) ]];then 
 		echo 'Creating: # takeBreak alias >> ~/.bash_aliases'
 		echo -e "# takeBreak alias" >> ~/.bash_aliases
-		echo "alias getup='echo Take Break every 30min; tmux new-session -d -s "getUP" ${directory}/getUp.sh'" >> ~/.bash_aliases
+		echo "alias getup='echo Take Break every 30min; tmux new-session -d -s "getUP" ${directory}/getUp.py'" >> ~/.bash_aliases
 	else
 		echo 'alias "getup" already exist'
 	fi
