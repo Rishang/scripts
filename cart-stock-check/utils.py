@@ -63,7 +63,11 @@ def scrapper(config_file: str = "config.yml"):
         else:
             content = s.soup.select(item.source)
 
-        cont_txt = content[0].text
+        if content != []:
+            cont_txt = content[0].text
+        else:
+            data.append({})
+            continue
 
         if cont_txt == item.message:
             message_match = True
